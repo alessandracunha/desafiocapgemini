@@ -12,4 +12,9 @@ describe('receba o valor investido em reais e retorne uma projeção aproximada 
     test('cada 20 pessoas que clicam no anúncio 3 compartilham nas redes sociais', () => {
         expect(calcularQtdMaximaPessoas(1, 2, 20)).toBe(230);
     });
+    
+    test('cada 100 pessoas que visualizam o anúncio 12 clicam nele', () => {
+        expect(calcularQtdMaximaPessoas(1, 2, 20)).toBe(390);
+    });
 });
+
