@@ -1,20 +1,16 @@
 const calcularQtdMaximaPessoas = require('./calculadora');
 
 describe('receba o valor investido em reais e retorne uma projeção aproximada da quantidade máxima de pessoas', () => {
-    test('30 pessoas visualizam o anúncio original (não compartilhado) a cada R$ 1,00 investido.', () => {
-        expect(calcularQtdMaximaPessoas(1, 0, 0)).toBe(70);
+    test('cada 1 real investido devo obter 190 visualizacoes', () => {
+        expect(calcularQtdMaximaPessoas(1)).toBe(190);
     });
 
-    test('cada compartilhamento nas redes sociais gera 40 novas visualizações', () => {
-        expect(calcularQtdMaximaPessoas(1, 2, 0)).toBe(190);
+    test('cada 2 reais investidos devo obter 220 visualizacoes', () => {
+        expect(calcularQtdMaximaPessoas(2)).toBe(220);
     });
 
-    test('cada 20 pessoas que clicam no anúncio 3 compartilham nas redes sociais', () => {
-        expect(calcularQtdMaximaPessoas(1, 2, 20)).toBe(390);
-    });
-    
-    test('cada 100 pessoas que visualizam o anúncio 12 clicam nele', () => {
-        expect(calcularQtdMaximaPessoas(1, 2, 20)).toBe(390);
+    test('cada 1000 reais investidos devo obter 116400 visualizacoes', () => {
+        expect(calcularQtdMaximaPessoas(1000)).toBe(116400);
     });
 });
 
