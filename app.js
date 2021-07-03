@@ -1,13 +1,24 @@
 const express = require('express')
 const app = express()
 const port = 3000
-const calcularQtdMaximaPessoas = require('./calculadora');
+const calculadora = require('./calculadora');
 
-app.get('/calcularQtdMaximaPessoas', (req, res) => {
+app.get('/calcularValorInvestido', (req, res) => {
     const investimento = req.query.investimento;
-    const compartilhamentos = req.query.compartilhamentos;
     res.setHeader('content-type', 'text/plain');
-    res.send(JSON.stringify({ qtdPessoas: calcularQtdMaximaPessoas(investimento, compartilhamentos) }));
+
+    const qtdPessoas = calculadora.calcularQtdMaximaPessoas(investimento);
+    const qtdCliques = calculadora.calcularQtdCliques(calculadora.calcularQtdVisualizacoesBase(investimento));
+    const qtdCompartilhamentos = calculadora.calcularQtdCompartilhamentos(qtdCliques);
+
+    res.send(JSON.stringify(
+        { 
+            investimento,
+            qtdPessoas,
+            qtdCliques,
+            qtdCompartilhamentos
+        }
+    ));
 })
 
 app.listen(port, () => {

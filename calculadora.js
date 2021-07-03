@@ -3,13 +3,16 @@
  * @description Recebe um valor investido em reais e retorna uma projeção aproximada da quantidade máxima de pessoas que visualizarão o mesmo anúncio
  */
 const calcularQtdMaximaPessoas = (valorInvestido) => {
-    const qtdVisualizacoesOriginal = 30;
-    const qtdVisualizacoes = valorInvestido * qtdVisualizacoesOriginal;
-
+    const qtdVisualizacoes = calcularQtdVisualizacoesBase(valorInvestido);
     const qtdCliques = calcularQtdCliques(qtdVisualizacoes);
     const qtdCompartilhamentos = calcularQtdCompartilhamentos(qtdCliques);
     const qtdNovasVisualizacoesPorCompartilhamento = 40;
     return qtdCompartilhamentos * qtdNovasVisualizacoesPorCompartilhamento + qtdVisualizacoes;
+}
+
+const calcularQtdVisualizacoesBase = (valorInvestido) => {
+    const qtdVisualizacoesOriginal = 30;
+    return valorInvestido * qtdVisualizacoesOriginal;
 }
 
 /**
@@ -39,4 +42,4 @@ const calcularQtdCliques = (qtdVisualizacoes) => {
     return Math.round((qtdVisualizacoes * cliquesBase) / visualizacoesBase);
 }
 
-module.exports = calcularQtdMaximaPessoas;
+module.exports = { calcularQtdMaximaPessoas, calcularQtdCompartilhamentos, calcularQtdCliques, calcularQtdVisualizacoesBase };
