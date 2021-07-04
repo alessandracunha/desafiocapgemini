@@ -1,0 +1,14 @@
+.center-content {
+    display: flex;
+    justify-content: center;
+    margin: 10px;
+}
+
+a {
+    padding: 20px;
+    margin: 0px 10px;
+}
+
+.active {
+    background-color: #8c0a00;
+}

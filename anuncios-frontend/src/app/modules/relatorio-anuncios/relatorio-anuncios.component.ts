@@ -1,24 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
-export interface PeriodicElement {
-  name: string;
-  position: number;
-  weight: number;
-  symbol: string;
-}
-
-const ELEMENT_DATA: PeriodicElement[] = [
-  {position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H'},
-  {position: 2, name: 'Helium', weight: 4.0026, symbol: 'He'},
-  {position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li'},
-  {position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be'},
-  {position: 5, name: 'Boron', weight: 10.811, symbol: 'B'},
-  {position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C'},
-  {position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N'},
-  {position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O'},
-  {position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F'},
-  {position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne'},
-];
+import { AnuncioRelatorio, RelatorioAnunciosService } from './services/relatorio-anuncios.service';
 
 @Component({
   selector: 'app-relatorio-anuncios',
@@ -26,12 +7,23 @@ const ELEMENT_DATA: PeriodicElement[] = [
   styleUrls: ['./relatorio-anuncios.component.css']
 })
 export class RelatorioAnunciosComponent implements OnInit {
-  public displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
-  public dataSource = ELEMENT_DATA;
+  public displayedColumns: string[] = ['nome', 'valorTotalInvestido', 'qtdMaximaVisualizacoes', 'qtdMaximaCliques', 'qtdMaximaCompartilhamentos'];
+  public dataSource: AnuncioRelatorio[] = [];
+  public camposBusca: {cliente: string, dataInicioVigencia: Date, dataFimVigencia: Date} = {
+    cliente: '',
+    dataInicioVigencia: new Date(`${new Date().getMonth()}-${new Date().getDate()}-${new Date().getFullYear()}`),
+    dataFimVigencia: new Date(`${new Date().getMonth()}-${new Date().getDate()}-${new Date().getFullYear() + 1}`)
+  };
 
-  constructor() { }
+  constructor(private readonly service: RelatorioAnunciosService) { }
 
-  ngOnInit(): void {
+  public filtrar(): void {
+    this.ngOnInit();
+  }
+
+  public ngOnInit(): void {
+    this.service.getRelatorio(this.camposBusca.cliente, this.camposBusca.dataInicioVigencia, this.camposBusca.dataFimVigencia)
+      .subscribe(relatorio => this.dataSource = relatorio);
   }
 
 }

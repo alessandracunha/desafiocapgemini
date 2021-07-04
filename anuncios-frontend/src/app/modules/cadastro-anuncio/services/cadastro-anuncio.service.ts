@@ -15,10 +15,10 @@ export class AnuncioCadastro {
 
 export class Investimento {
   public constructor(
-    public investimento: number,
-    public qtdPessoas: number,
-    public qtdCliques: number,
-    public qtdCompartilhamentos: number
+    public valorTotalInvestido: number,
+    public qtdMaximaVisualizacoes: number,
+    public qtdMaximaCliques: number,
+    public qtdMaximaCompartilhamentos: string
   ) { }
 }
 
@@ -32,7 +32,10 @@ export class CadastroAnuncioService {
     return this.httpClient.post(`${environment.apiUrl}/anuncio`, anuncio);
   }
 
-  public calcularVisualizacoes(investimentoDia: number): Observable<Investimento> {
-    return this.httpClient.get<Investimento>(`${environment.apiUrl}/calcularValorInvestido?investimento=${investimentoDia}`)
+  public calcularVisualizacoes(investimentoDia: number, dataInicioVigencia: Date, dataFimVigencia: Date): Observable<Investimento> {
+    return this.httpClient.get<Investimento>(`${environment.apiUrl}/calcularValorInvestido` +
+      `?investimentoPorDia=${investimentoDia}` + 
+      `&dataInicioVigencia=${dataInicioVigencia.getMonth() + 1}-${dataInicioVigencia.getDate()}-${dataInicioVigencia.getFullYear()}` + 
+      `&dataFimVigencia=${dataFimVigencia.getMonth() + 1}-${dataFimVigencia.getDate()}-${dataFimVigencia.getFullYear()}`)
   }
 }
