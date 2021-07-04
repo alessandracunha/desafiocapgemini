@@ -1,0 +1,69 @@
+<form>
+  <mat-grid-list cols="6" rowHeight="100px">
+    <mat-grid-tile [colspan]="1" [rowspan]="1"></mat-grid-tile>
+
+    <mat-grid-tile [colspan]="1" [rowspan]="1">
+      <mat-form-field appearance="fill">
+        <mat-label>Cliente</mat-label>
+        <input matInput name="cliente" [(ngModel)]="camposBusca.cliente">
+      </mat-form-field>
+    </mat-grid-tile>
+
+    <mat-grid-tile [colspan]="1" [rowspan]="1">
+      <mat-form-field appearance="fill">
+        <mat-label>Data Início de Vigência</mat-label>
+        <input matInput [matDatepicker]="inicioVigencia" name="dataInicioVigencia"
+          [(ngModel)]="camposBusca.dataInicioVigencia">
+        <mat-datepicker-toggle matSuffix [for]="inicioVigencia"></mat-datepicker-toggle>
+        <mat-datepicker #inicioVigencia></mat-datepicker>
+      </mat-form-field>
+    </mat-grid-tile>
+
+    <mat-grid-tile [colspan]="1" [rowspan]="1">
+      <mat-form-field appearance="fill">
+        <mat-label>Data Fim de Vigência</mat-label>
+        <input matInput [matDatepicker]="fimVigencia" name="dataFimVigencia" [(ngModel)]="camposBusca.dataFimVigencia">
+        <mat-datepicker-toggle matSuffix [for]="fimVigencia"></mat-datepicker-toggle>
+        <mat-datepicker #fimVigencia></mat-datepicker>
+      </mat-form-field>
+    </mat-grid-tile>
+
+    <mat-grid-tile [colspan]="1" [rowspan]="1">
+      <button mat-raised-button color="primary" (click)="filtrar()">Filtrar</button>
+    </mat-grid-tile>
+
+    <mat-grid-tile [colspan]="1" [rowspan]="1"></mat-grid-tile>
+  </mat-grid-list>
+</form>
+
+<div class="table-scrolling">
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+    <ng-container matColumnDef="nome">
+      <th mat-header-cell *matHeaderCellDef> Nome Anúncio </th>
+      <td mat-cell *matCellDef="let element"> {{ element.nome }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="valorTotalInvestido">
+      <th mat-header-cell *matHeaderCellDef> Valor Total </th>
+      <td mat-cell *matCellDef="let element"> {{ element.valorTotalInvestido }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="qtdMaximaVisualizacoes">
+      <th mat-header-cell *matHeaderCellDef> Qtd. Visualizações </th>
+      <td mat-cell *matCellDef="let element"> {{ element.qtdMaximaVisualizacoes }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="qtdMaximaCliques">
+      <th mat-header-cell *matHeaderCellDef> Qtd. Cliques </th>
+      <td mat-cell *matCellDef="let element"> {{ element.qtdMaximaCliques }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="qtdMaximaCompartilhamentos">
+      <th mat-header-cell *matHeaderCellDef> Qtd. Compartilhamentos </th>
+      <td mat-cell *matCellDef="let element"> {{ element.qtdMaximaCompartilhamentos }} </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+</div>
