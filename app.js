@@ -1,7 +1,10 @@
 const express = require('express')
+const cors = require('cors');
 const app = express()
 const port = 3000
 const calculadora = require('./calculadora');
+
+app.use(cors())
 
 app.get('/calcularValorInvestido', (req, res) => {
     const investimento = req.query.investimento;
@@ -19,6 +22,10 @@ app.get('/calcularValorInvestido', (req, res) => {
             qtdCompartilhamentos
         }
     ));
+})
+
+app.post('/anuncio', (req, res) => {
+    console.log(req.body);
 })
 
 app.listen(port, () => {

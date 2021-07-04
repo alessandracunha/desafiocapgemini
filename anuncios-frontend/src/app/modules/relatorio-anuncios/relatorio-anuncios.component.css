@@ -1,0 +1,9 @@
+table {
+    width: 100%;
+}
+
+.table-scrolling {
+    width: 40%;
+    overflow: auto;
+    height: 200px;
+}
